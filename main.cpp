@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Grid.h"
+#include "Game.h"
 
 using namespace sf;
 using namespace std;
@@ -42,6 +43,7 @@ int main() {
 	token.setFillColor(Color::Blue);
 	token.setOutlineColor(Color::Black);
 	token.setOutlineThickness(2);
+	Game game;
 
 	while (window.isOpen())
 	{
@@ -52,51 +54,19 @@ int main() {
 				window.close();
 			else if (event.type == Event::KeyPressed)
 			{
-				if (Keyboard::isKeyPressed(Keyboard::Key::Left))
+				if (Keyboard::isKeyPressed(Keyboard::Key::Enter))
 				{
-					dir = 1;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Key::Right))
-				{
-					dir = 2;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Key::Down))
-				{
-					dir = 3;
+					window.close();
+					game.play();
 				}
 			}
 		}
 
-		if (dir == 1)
-		{
-			token.move(-64, 0);
-			dir = 0;
-		}
-		else if (dir == 2)
-		{
-			token.move(64, 0);
-			dir = 0;
-		}
+		window.clear(Color::Black);
 
-		time = clock.getElapsedTime();
+		window.draw(background);
 
-		if (time.asMilliseconds() >= 50)
-		{
-			if (dir == 3)
-			{
-				token.move(0, 10);
-			}
-
-			window.clear(Color::Black);
-
-			window.draw(background);
-			window.draw(token);
-			window.draw(grid);
-
-			window.display();
-
-			clock.restart();
-		}
+		window.display();
 	}
 
 	return 0;
