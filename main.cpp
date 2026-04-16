@@ -63,21 +63,22 @@ int main() {
 					dir = 3;
 				}
 			}
-
 		}
 
 		if (dir == 1)
 		{
 			token.move(-64, 0);
+			dir = 0;
 		}
 		else if (dir == 2)
 		{
 			token.move(64, 0);
+			dir = 0;
 		}
 
 		time = clock.getElapsedTime();
 
-		if (time.asMilliseconds() >= 100)
+		if (time.asMilliseconds() >= 50)
 		{
 			if (dir == 3)
 			{
@@ -94,8 +95,6 @@ int main() {
 
 			clock.restart();
 		}
-
-		
 	}
 
 	return 0;
