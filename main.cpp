@@ -19,6 +19,14 @@ int main() {
 	Clock clock;
 	Time time;
 
+	Texture textureGrid;
+
+	if (!textureGrid.loadFromFile("Grid.png")) {
+		exit(1); // Si incapable de charger, on quitte avec un code d�erreur
+	}
+
+	grid.setTexture(&textureGrid); // Applique la texture � l��l�ment souhait�
+
 	window.setFramerateLimit(60);
 	
 	background.setSize(Vector2f(800, 600));
@@ -66,17 +74,6 @@ int main() {
 		{
 			token.move(64, 0);
 		}
-		Texture textureGrid;
-
-		if (!textureGrid.loadFromFile("Grid.png")) {
-			exit(1); // Si incapable de charger, on quitte avec un code d�erreur
-		}
-
-		grid.setTexture(&textureGrid); // Applique la texture � l��l�ment souhait�
-
-		window.draw(background);
-		window.draw(grid);
-		window.draw(token);
 
 		time = clock.getElapsedTime();
 
