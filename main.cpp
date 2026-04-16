@@ -12,7 +12,7 @@ int main() {
 	RectangleShape grid;
 
 	CircleShape token;
-	int tokenSize = 64;
+	int tokenSize = 60;
 
 	int dir = 0;
 
@@ -32,7 +32,7 @@ int main() {
 	background.setSize(Vector2f(800, 700));
 	background.setFillColor(backgroundColor);
 
-	grid.setSize(Vector2f(tokenSize * 7, tokenSize * 6));
+	grid.setSize(Vector2f(500, 500));
 	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
 	token.setRadius(tokenSize / 2);
@@ -87,8 +87,8 @@ int main() {
 			window.clear(Color::Black);
 
 			window.draw(background);
-			window.draw(grid);
 			window.draw(token);
+			window.draw(grid);
 
 			window.display();
 
