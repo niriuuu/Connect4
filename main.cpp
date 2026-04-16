@@ -25,7 +25,6 @@ int main() {
 	background.setFillColor(backgroundColor);
 
 	grid.setSize(Vector2f(tokenSize * 7, tokenSize * 6));
-	grid.setFillColor(Color::Yellow);
 	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
 	token.setRadius(tokenSize / 2);
@@ -67,6 +66,17 @@ int main() {
 		{
 			token.move(64, 0);
 		}
+		Texture textureGrid;
+
+		if (!textureGrid.loadFromFile("Grid.png")) {
+			exit(1); // Si incapable de charger, on quitte avec un code d�erreur
+		}
+
+		grid.setTexture(&textureGrid); // Applique la texture � l��l�ment souhait�
+
+		window.draw(background);
+		window.draw(grid);
+		window.draw(token);
 
 		time = clock.getElapsedTime();
 
