@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-using namespace sf; // Namespace pour les objets de la librairie SFML
-using namespace std; // Namespace pour les objets de la librairie standard en C++
+using namespace sf;
+using namespace std;
 
 int main() {
 	RenderWindow window(VideoMode(800, 600), "My window");
@@ -14,7 +14,10 @@ int main() {
 	CircleShape token;
 	int tokenSize = 64;
 
-	
+	int dir = 0;
+
+	Clock clock;
+	Time time;
 
 	window.setFramerateLimit(60);
 	
@@ -38,14 +41,54 @@ int main() {
 		{
 			if (event.type == Event::Closed)
 				window.close();
+			else if (event.type == Event::KeyPressed)
+			{
+				if (Keyboard::isKeyPressed(Keyboard::Key::Left))
+				{
+					dir = 1;
+				}
+				else if (Keyboard::isKeyPressed(Keyboard::Key::Right))
+				{
+					dir = 2;
+				}
+				else if (Keyboard::isKeyPressed(Keyboard::Key::Down))
+				{
+					dir = 3;
+				}
+			}
+
 		}
-		window.clear(Color::Black);
 
-		window.draw(background);
-		window.draw(grid);
-		window.draw(token);
+		if (dir == 1)
+		{
+			token.move(-64, 0);
+		}
+		else if (dir == 2)
+		{
+			token.move(64, 0);
+		}
 
-		window.display();
+		time = clock.getElapsedTime();
+
+		if (time.asMilliseconds() >= 100)
+		{
+			if (dir == 3)
+			{
+				token.move(0, 10);
+			}
+
+			window.clear(Color::Black);
+
+			window.draw(background);
+			window.draw(grid);
+			window.draw(token);
+
+			window.display();
+
+			clock.restart();
+		}
+
+		
 	}
 
 	return 0;
