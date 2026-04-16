@@ -29,7 +29,7 @@ int main() {
 
 	window.setFramerateLimit(60);
 	
-	background.setSize(Vector2f(800, 600));
+	background.setSize(Vector2f(800, 700));
 	background.setFillColor(backgroundColor);
 
 	grid.setSize(Vector2f(tokenSize * 7, tokenSize * 6));
