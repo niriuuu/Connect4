@@ -9,6 +9,7 @@ using namespace std;
 Game::Game()
 {
 	_gameOver = false;
+	_playerTurn = 1;
 }
 
 Game::~Game()
@@ -26,13 +27,7 @@ bool Game::play(RenderWindow& window)
 
 	Grid grid2;
 
-	CircleShape token;
-	int tokenSize = 60;
-
-	//int dir = 0;
-
-	const enum Directions { NONE, LEFT, RIGHT, DOWN };
-	Directions dir = NONE;
+	Token token(Color::Blue);
 
 	Clock clock;
 	Time time;
@@ -52,76 +47,52 @@ bool Game::play(RenderWindow& window)
 	grid2.inititaliserGrid(500, 500);
 	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
-	token.setRadius(tokenSize / 2);
-	token.setPosition(Vector2f(400 - 30, 30));
-	token.setFillColor(Color::Blue);
-	token.setOutlineColor(Color::Black);
-	token.setOutlineThickness(2);
-
 	while (window.isOpen())
 	{
 		Event event;
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-				case Event::Closed:
-				{
-					window.close();
-					break;
-				}
-				case Event::KeyPressed:
-				{
-					switch (event.key.code)
-					{
-						case Keyboard::Left:
-						{
-							dir = LEFT;
-							break;
-						}
-						case Keyboard::Right:
-						{
-							dir = RIGHT;
-							break;
-						}
-						case Keyboard::Down:
-						{
-							dir = DOWN;
-							break;
-						}
-						default:
-							break;
-					}
-				}
-				default:
-					break;
-			}
-		}
+		handleEvent(event, window);
 
-		if (dir == LEFT)
+		if (_dir == LEFT)
 		{
-			token.move(-66, 0);
-			dir = NONE;
+			token.getCircle().move(-66, 0);
+			_dir = NONE;
 		}
-		else if (dir == RIGHT)
+		else if (_dir == RIGHT)
 		{
-			token.move(66, 0);
-			dir = NONE;
+			token.getCircle().move(66, 0);
+			_dir = NONE;
 		}
 
 		time = clock.getElapsedTime();
 
 		if (time.asMilliseconds() >= 10)
 		{
-			if (dir == DOWN)
+			if (_dir == DOWN)
 			{
-				token.move(0, 10);
+				token.getCircle().move(0, 10);
+
+				if (token.getCircle().getPosition().y == 470)
+				{
+					_dir = NONE;
+					token.getCircle().setPosition(370, 30);
+
+					if (_playerTurn == 1)
+					{
+						token.getCircle().setFillColor(Color::Red);
+						_playerTurn = 2;
+					}
+					else
+					{
+						token.getCircle().setFillColor(Color::Blue);
+						_playerTurn = 1;
+					}
+				}
 			}
 
 			window.clear(Color::Black);
 
 			window.draw(background);
-			window.draw(token);
+			window.draw(token.getCircle());
 			window.draw(grid);
 
 			window.display();
@@ -131,4 +102,44 @@ bool Game::play(RenderWindow& window)
 	}
 
     return false;
+}
+
+void Game::handleEvent(Event& event, RenderWindow& window)
+{
+	while (window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case Event::Closed:
+		{
+			window.close();
+			break;
+		}
+		case Event::KeyPressed:
+		{
+			switch (event.key.code)
+			{
+			case Keyboard::Left:
+			{
+				_dir = LEFT;
+				break;
+			}
+			case Keyboard::Right:
+			{
+				_dir = RIGHT;
+				break;
+			}
+			case Keyboard::Down:
+			{
+				_dir = DOWN;
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		default:
+			break;
+		}
+	}
 }

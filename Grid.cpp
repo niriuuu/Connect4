@@ -1,8 +1,9 @@
+#include <SFML/Graphics.hpp>
+#include <vector>
 #include "Grid.h"
 
+using namespace sf;
 using namespace std;
-
-vector<bool>placeDisponible;
 
 Grid::Grid()
 {

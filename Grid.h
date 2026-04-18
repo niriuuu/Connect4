@@ -1,13 +1,11 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-
-using namespace sf;
 
 class Grid
 {
 private:
-	RectangleShape _grid;
-	Texture _textureGrid;
+	sf::RectangleShape _grid;
+	sf::Texture _textureGrid;
+	std::vector<bool> placeDisponible;
 
 public:
 	Grid();
