@@ -11,7 +11,7 @@ public:
 	Game();
 	~Game();
 
-	bool play(sf::RenderWindow& window);
+	int play(sf::RenderWindow& window); //Retourne 0 si egalite, 1 si victoire joueur 1 ou 2 si victoire joueur 2
 	void handleEvent(sf::Event& event, sf::RenderWindow& window);
 
 };

@@ -16,9 +16,9 @@ Game::~Game()
 {
 }
 
-bool Game::play(RenderWindow& window)
+int Game::play(RenderWindow& window)
 {
-	/*RenderWindow window(VideoMode(800, 600), "My window");*/
+	int winner = 0;
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -47,7 +47,7 @@ bool Game::play(RenderWindow& window)
 	grid2.inititaliserGrid(500, 500);
 	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
-	while (window.isOpen())
+	while (window.isOpen() && !_gameOver)
 	{
 		Event event;
 		handleEvent(event, window);
@@ -101,7 +101,7 @@ bool Game::play(RenderWindow& window)
 		}
 	}
 
-    return false;
+    return winner;
 }
 
 void Game::handleEvent(Event& event, RenderWindow& window)
