@@ -15,9 +15,9 @@ Game::~Game()
 {
 }
 
-bool Game::play()
+bool Game::play(RenderWindow& window)
 {
-	RenderWindow window(VideoMode(800, 600), "My window");
+	/*RenderWindow window(VideoMode(800, 600), "My window");*/
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -62,7 +62,7 @@ bool Game::play()
 		Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			/*if (event.type == Event::Closed)
 				window.close();
 			else if (event.type == Event::KeyPressed)
 			{
@@ -78,6 +78,39 @@ bool Game::play()
 				{
 					dir = 3;
 				}
+			}*/
+			switch (event.type)
+			{
+				case Event::Closed:
+				{
+					window.close();
+					break;
+				}
+				case Event::KeyPressed:
+				{
+					switch (event.key.code)
+					{
+						case Keyboard::Left:
+						{
+							dir = 1;
+							break;
+						}
+						case Keyboard::Right:
+						{
+							dir = 2;
+							break;
+						}
+						case Keyboard::Down:
+						{
+							dir = 3;
+							break;
+						}
+						default:
+							break;
+					}
+				}
+				default:
+					break;
 			}
 		}
 

@@ -8,7 +8,7 @@ public:
 	Game();
 	~Game();
 
-	bool play();
+	bool play(sf::RenderWindow& window);
 
 };
 

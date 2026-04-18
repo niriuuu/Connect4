@@ -16,7 +16,7 @@ int main() {
 
 	window.setFramerateLimit(60);
 
-	background.setSize(Vector2f(800, 700));
+	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
 
 	while (window.isOpen())
@@ -24,15 +24,28 @@ int main() {
 		Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
-				window.close();
-			else if (event.type == Event::KeyPressed)
+			switch (event.type)
 			{
-				if (Keyboard::isKeyPressed(Keyboard::Key::Enter))
+				case Event::Closed:
 				{
 					window.close();
-					game.play();
+					break;
 				}
+				case Event::KeyPressed:
+				{
+					switch (event.key.code)
+					{
+						case Keyboard::Enter:
+						{
+							game.play(window);
+							break;
+						}
+						default:
+							break;
+					}
+				}
+				default:
+					break;
 			}
 		}
 
