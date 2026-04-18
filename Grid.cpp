@@ -8,6 +8,10 @@ Grid::Grid()
 {
 }
 
+Grid::~Grid()
+{
+}
+
 void Grid::inititaliserGrid(int x, int y)
 {
 	_grid.setSize(Vector2f(x, y));

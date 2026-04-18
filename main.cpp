@@ -11,39 +11,13 @@ int main() {
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
-	//RectangleShape grid;
-	Grid grid();
-	CircleShape token;
-	int tokenSize = 60;
-
-	int dir = 0;
-
-	Clock clock;
-	Time time;
-
-	Texture textureGrid;
-
-	if (!textureGrid.loadFromFile("Grid.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d�erreur
-	}
-
-	//grid.setTexture(&textureGrid); // Applique la texture � l��l�ment souhait�
+	
+	Game game;
 
 	window.setFramerateLimit(60);
-	
+
 	background.setSize(Vector2f(800, 700));
 	background.setFillColor(backgroundColor);
-
-	//grid.setSize(Vector2f(500, 500));
-	//grid.inititaliserGrid();
-	//grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
-
-	token.setRadius(tokenSize / 2);
-	token.setPosition(Vector2f(400 - 32, 32));
-	token.setFillColor(Color::Blue);
-	token.setOutlineColor(Color::Black);
-	token.setOutlineThickness(2);
-	Game game;
 
 	while (window.isOpen())
 	{

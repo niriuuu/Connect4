@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "Grid.h"
+#include "Token.h"
 
 using namespace sf;
 using namespace std;
@@ -21,6 +23,8 @@ bool Game::play()
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
 	RectangleShape grid;
+
+	Grid grid2;
 
 	CircleShape token;
 	int tokenSize = 60;
@@ -44,6 +48,7 @@ bool Game::play()
 	background.setFillColor(backgroundColor);
 
 	grid.setSize(Vector2f(500, 500));
+	grid2.inititaliserGrid(500, 500);
 	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
 	token.setRadius(tokenSize / 2);
