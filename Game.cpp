@@ -29,7 +29,10 @@ bool Game::play(RenderWindow& window)
 	CircleShape token;
 	int tokenSize = 60;
 
-	int dir = 0;
+	//int dir = 0;
+
+	const enum Directions { NONE, LEFT, RIGHT, DOWN };
+	Directions dir = NONE;
 
 	Clock clock;
 	Time time;
@@ -40,11 +43,9 @@ bool Game::play(RenderWindow& window)
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
 	}
 
-	grid.setTexture(&textureGrid); // Applique la texture reelement souhaitee
+	grid.setTexture(&textureGrid); // Applique la texture reellement souhaitee
 
-	window.setFramerateLimit(60);
-
-	background.setSize(Vector2f(800, 700));
+	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
 
 	grid.setSize(Vector2f(500, 500));
@@ -62,23 +63,6 @@ bool Game::play(RenderWindow& window)
 		Event event;
 		while (window.pollEvent(event))
 		{
-			/*if (event.type == Event::Closed)
-				window.close();
-			else if (event.type == Event::KeyPressed)
-			{
-				if (Keyboard::isKeyPressed(Keyboard::Key::Left))
-				{
-					dir = 1;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Key::Right))
-				{
-					dir = 2;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Key::Down))
-				{
-					dir = 3;
-				}
-			}*/
 			switch (event.type)
 			{
 				case Event::Closed:
@@ -92,17 +76,17 @@ bool Game::play(RenderWindow& window)
 					{
 						case Keyboard::Left:
 						{
-							dir = 1;
+							dir = LEFT;
 							break;
 						}
 						case Keyboard::Right:
 						{
-							dir = 2;
+							dir = RIGHT;
 							break;
 						}
 						case Keyboard::Down:
 						{
-							dir = 3;
+							dir = DOWN;
 							break;
 						}
 						default:
@@ -114,22 +98,22 @@ bool Game::play(RenderWindow& window)
 			}
 		}
 
-		if (dir == 1)
+		if (dir == LEFT)
 		{
 			token.move(-66, 0);
-			dir = 0;
+			dir = NONE;
 		}
-		else if (dir == 2)
+		else if (dir == RIGHT)
 		{
 			token.move(66, 0);
-			dir = 0;
+			dir = NONE;
 		}
 
 		time = clock.getElapsedTime();
 
-		if (time.asMilliseconds() >= 50)
+		if (time.asMilliseconds() >= 10)
 		{
-			if (dir == 3)
+			if (dir == DOWN)
 			{
 				token.move(0, 10);
 			}
