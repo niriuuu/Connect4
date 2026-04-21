@@ -23,29 +23,20 @@ int Game::play(RenderWindow& window)
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	RectangleShape grid;
+	Grid grid(500, 500, 150, 50);
 
-	Grid grid2;
+	
 
 	Token token(Color::Blue);
 
 	Clock clock;
 	Time time;
 
-	Texture textureGrid;
-
-	if (!textureGrid.loadFromFile("Grid.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
-	}
-
-	grid.setTexture(&textureGrid); // Applique la texture reellement souhaitee
-
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
 
-	grid.setSize(Vector2f(500, 500));
-	grid2.inititaliserGrid(500, 500);
-	grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
+	//grid.setSize(Vector2f(500, 500));
+	//grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
 
 	while (window.isOpen() && !_gameOver)
 	{
@@ -93,7 +84,7 @@ int Game::play(RenderWindow& window)
 
 			window.draw(background);
 			window.draw(token.getCircle());
-			window.draw(grid);
+			window.draw(grid.getRectangle());
 
 			window.display();
 
