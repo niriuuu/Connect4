@@ -10,6 +10,6 @@ public:
 	~Token() = default;
 
 	sf::CircleShape& getCircle();
-
+	void resetPos();
 };
 

@@ -74,7 +74,7 @@ int Game::play(RenderWindow& window)
 				if (token.getCircle().getPosition().y == 470)
 				{
 					_dir = NONE;
-					token.getCircle().setPosition(370, 30);
+					token.resetPos();
 
 					if (_playerTurn == 1)
 					{

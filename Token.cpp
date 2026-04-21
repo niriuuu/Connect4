@@ -20,3 +20,8 @@ CircleShape& Token::getCircle()
 {
 	return _circle;
 }
+
+void Token::resetPos()
+{
+	_circle.setPosition(_defaultPos);
+}
