@@ -5,7 +5,7 @@ class Grid
 private:
 	sf::RectangleShape _rectangle;
 	sf::Texture _textureGrid;
-	std::vector<bool> placeDisponible;
+	std::vector<std::vector<int>> _spaces;
 
 	int _width = 0;
 	int _height = 0;
@@ -17,7 +17,6 @@ public:
 	Grid(int _width, int _height, int _x, int _y);
 	~Grid();
 
-	void inititaliserGrid(int x, int y); //CC : On pourrait ajouter des variables dans le private pour les dimensions et la position de la grille. Ensuite faire un constructeur avec parametres au lieu de cette methode.
 	sf::RectangleShape& getRectangle();
 };
 

@@ -39,11 +39,6 @@ Grid::~Grid()
 	int _y = 0;
 }
 
-void Grid::inititaliserGrid(int x, int y)
-{
-	/*_grid.setSize(Vector2f(x, y));*/
-}
-
 sf::RectangleShape& Grid::getRectangle()
 {
 	return _rectangle;
