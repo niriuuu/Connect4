@@ -20,6 +20,9 @@ int Game::play(RenderWindow& window)
 {
 	int winner = 0;
 	const int moveDistance = 66;
+	int activeColumn = 3;
+	int activeRow = 0;
+	int lowBound = 500 - 16;
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -43,55 +46,80 @@ int Game::play(RenderWindow& window)
 		Event event;
 		handleEvent(event, window);
 
-		if (_dir == LEFT && token.getCircle().getPosition().x > grid.getRectangle().getGlobalBounds().left + token.getCircle().getRadius())
+		if (_dir == LEFT)
 		{
-			token.getCircle().move(-moveDistance, 0);
+			if (token.getCircle().getPosition().x > grid.getRectangle().getGlobalBounds().left + token.getCircle().getRadius())
+			{
+				token.getCircle().move(-moveDistance, 0);
+				activeColumn--;
+			}
+				
 			_dir = NONE;
 		}
-		else if (_dir == RIGHT && token.getCircle().getPosition().x < grid.getRectangle().getGlobalBounds().left + grid.getRectangle().getGlobalBounds().width - token.getCircle().getRadius())
+		else if (_dir == RIGHT)
 		{
-			token.getCircle().move(moveDistance, 0);
+			if (token.getCircle().getPosition().x < grid.getRectangle().getGlobalBounds().left + 500 - 100)
+			{
+				token.getCircle().move(moveDistance, 0);
+				activeColumn++;
+			}
+				
 			_dir = NONE;
 		}
 
-		time = clock.getElapsedTime();
+		if (_dir == DOWN)
+		{
+			activeRow = 0;
+			while (grid.getSpace(activeRow, activeColumn) != 0)
+			{
+				activeRow++;
+			}
+		}
 
-		if (time.asMilliseconds() >= 10)
+		/*Animation: chaque 10 millisecondes, le jeton se déplace de 10 pixels vers le bas jusqu'à-ce qu'il rencontre le bas de la grille(lowBound), ajusté selon la rangée active.
+		time = clock.getElapsedTime();*/
+
+		if (time.asMilliseconds() >= 10) 
 		{
 			if (_dir == DOWN)
 			{
-				
-
 				token.getCircle().move(0, 10);
 
-				if (token.getCircle().getPosition().y == 460)
+				if (token.getCircle().getPosition().y + token.getCircle().getRadius() >= lowBound - activeRow * (moveDistance + 9))
 				{
 					if (_playerTurn == 1)
-					{
+					{	
 						tokens.push_back(token);
+						grid.changeSpace(activeRow, activeColumn, 1);
 						token.getCircle().setFillColor(Color::Red);
 						_playerTurn = 2;
 					}
 					else
 					{
 						tokens.push_back(token);
+						grid.changeSpace(activeRow, activeColumn, 2);
 						token.getCircle().setFillColor(Color::Blue);
 						_playerTurn = 1;
 					}
 
 					_dir = NONE;
 					token.resetPos();
+					activeColumn = 3;
+					activeRow = 0;
 				}
 			}
 
 			window.clear(Color::Black);
 
 			window.draw(background);
+
 			window.draw(token.getCircle());
+
 			for (int i = 0; i < tokens.size(); i++)
 			{
 				window.draw(tokens[i].getCircle());
 			}
+
 			window.draw(grid.getRectangle());
 
 			window.display();

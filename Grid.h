@@ -7,16 +7,21 @@ private:
 	sf::Texture _textureGrid;
 	std::vector<std::vector<int>> _spaces;
 
-	int _width = 0;
-	int _height = 0;
-	int _x = 0;
-	int _y = 0;
+	int _width;
+	int _height;
+	int _xPos;
+	int _yPos;
 
 public:
 	Grid();
-	Grid(int _width, int _height, int _x, int _y);
+	Grid(int width, int height, int xPos, int yPos);
 	~Grid();
 
 	sf::RectangleShape& getRectangle();
+	int getSpace(int row, int col);
+
+	void initSpaces();
+
+	void changeSpace(int row, int col, int value);
 };
 
