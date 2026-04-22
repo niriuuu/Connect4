@@ -19,15 +19,15 @@ Game::~Game()
 int Game::play(RenderWindow& window)
 {
 	int winner = 0;
+	const int moveDistance = 66;
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
 	Grid grid(500, 500, 150, 50);
 
-	
-
 	Token token(Color::Blue);
+	vector<Token> tokens;
 
 	Clock clock;
 	Time time;
@@ -43,14 +43,14 @@ int Game::play(RenderWindow& window)
 		Event event;
 		handleEvent(event, window);
 
-		if (_dir == LEFT)
+		if (_dir == LEFT && token.getCircle().getPosition().x > grid.getRectangle().getGlobalBounds().left + token.getCircle().getRadius())
 		{
-			token.getCircle().move(-66, 0);
+			token.getCircle().move(-moveDistance, 0);
 			_dir = NONE;
 		}
-		else if (_dir == RIGHT)
+		else if (_dir == RIGHT && token.getCircle().getPosition().x < grid.getRectangle().getGlobalBounds().left + grid.getRectangle().getGlobalBounds().width - token.getCircle().getRadius())
 		{
-			token.getCircle().move(66, 0);
+			token.getCircle().move(moveDistance, 0);
 			_dir = NONE;
 		}
 
@@ -60,23 +60,27 @@ int Game::play(RenderWindow& window)
 		{
 			if (_dir == DOWN)
 			{
+				
+
 				token.getCircle().move(0, 10);
 
-				if (token.getCircle().getPosition().y == 470)
+				if (token.getCircle().getPosition().y == 460)
 				{
-					_dir = NONE;
-					token.resetPos();
-
 					if (_playerTurn == 1)
 					{
+						tokens.push_back(token);
 						token.getCircle().setFillColor(Color::Red);
 						_playerTurn = 2;
 					}
 					else
 					{
+						tokens.push_back(token);
 						token.getCircle().setFillColor(Color::Blue);
 						_playerTurn = 1;
 					}
+
+					_dir = NONE;
+					token.resetPos();
 				}
 			}
 
@@ -84,6 +88,10 @@ int Game::play(RenderWindow& window)
 
 			window.draw(background);
 			window.draw(token.getCircle());
+			for (int i = 0; i < tokens.size(); i++)
+			{
+				window.draw(tokens[i].getCircle());
+			}
 			window.draw(grid.getRectangle());
 
 			window.display();
@@ -112,17 +120,20 @@ void Game::handleEvent(Event& event, RenderWindow& window)
 			{
 			case Keyboard::Left:
 			{
-				_dir = LEFT;
+				if (_dir == NONE)
+					_dir = LEFT;
 				break;
 			}
 			case Keyboard::Right:
 			{
-				_dir = RIGHT;
+				if (_dir == NONE)
+					_dir = RIGHT;
 				break;
 			}
 			case Keyboard::Down:
 			{
-				_dir = DOWN;
+				if (_dir == NONE)
+					_dir = DOWN;
 				break;
 			}
 			default:
