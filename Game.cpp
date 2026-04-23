@@ -76,8 +76,9 @@ int Game::play(RenderWindow& window)
 			}
 		}
 
-		/*Animation: chaque 10 millisecondes, le jeton se déplace de 10 pixels vers le bas jusqu'à-ce qu'il rencontre le bas de la grille(lowBound), ajusté selon la rangée active.
-		time = clock.getElapsedTime();*/
+		/*Animation: chaque 10 millisecondes, le jeton se déplace de 10 pixels vers le bas jusqu'à-ce qu'il rencontre le bas de la grille(lowBound), ajusté selon la rangée active.*/
+
+		time = clock.getElapsedTime();
 
 		if (time.asMilliseconds() >= 10) 
 		{
