@@ -14,6 +14,7 @@ Token::Token(Color color)
 	_circle.setFillColor(color);
 	_circle.setOutlineColor(Color::Black);
 	_circle.setOutlineThickness(2);
+
 	if (!_textureToken.loadFromFile("Token.png")) {
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
 	}

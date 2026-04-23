@@ -107,8 +107,14 @@ int Game::play(RenderWindow& window)
 					token.resetPos();
 					activeColumn = 3;
 					activeRow = 0;
+
+					//validateur
+					validateGame(1, grid);
+					validateGame(2, grid);
+
 				}
 			}
+
 
 			window.clear(Color::Black);
 
@@ -171,6 +177,53 @@ void Game::handleEvent(Event& event, RenderWindow& window)
 		}
 		default:
 			break;
+		}
+	}
+}
+
+void Game::validateGame(int joueur, Grid& grid)
+{
+	int compteur = 0;
+
+	for (int i = 0; i < 6; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			if (grid.getSpace(i, j) == joueur)
+			{
+				compteur++;
+			}
+
+			else
+			{
+				compteur = 0;
+			}
+
+			if (compteur == 4)
+			{
+				_gameOver = joueur;
+			}
+		}
+	}
+
+	for (int i = 0; i < 7; i++)
+	{
+		for (int j = 0; j < 6; j++)
+		{
+			if (grid.getSpace(j, i) == joueur)
+			{
+				compteur++;
+			}
+
+			else
+			{
+				compteur = 0;
+			}
+
+			if (compteur == 4)
+			{
+				_gameOver = joueur;
+			}
 		}
 	}
 }
