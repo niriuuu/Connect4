@@ -51,6 +51,34 @@ int main() {
 							break;
 					}
 				}
+				case Event::MouseMoved:
+				{
+					Vector2i mousePos = Mouse::getPosition(window);
+					sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+					if (button1.isHovered(mousePosF))
+					{
+						button1.highlight();
+					}
+					else if (button2.isHovered(mousePosF))
+					{
+						button2.highlight();
+					}
+					else if (button3.isHovered(mousePosF))
+					{
+						button3.highlight();
+					}
+					else if (button4.isHovered(mousePosF))
+					{
+						button4.highlight();
+					}
+					else
+					{
+						button1.resetColor();
+						button2.resetColor();
+						button3.resetColor();
+						button4.resetColor();
+					}
+				}
 				default:
 					break;
 			}
