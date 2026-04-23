@@ -2,6 +2,7 @@
 #include <vector>
 #include "Grid.h"
 #include "Game.h"
+#include "Button.h"
 
 using namespace sf;
 using namespace std;
@@ -12,10 +13,11 @@ int main() {
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	RectangleShape button1;
-	RectangleShape button2;
-	RectangleShape button3;
-	RectangleShape button4;
+	/*RectangleShape button1;*/
+	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 150), Color::Black);
+	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 250), Color::Black);
+	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 350), Color::Black);
+	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 450), Color::Black);
 	
 	Game game;
 
@@ -23,18 +25,6 @@ int main() {
 
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
-
-	button1.setSize(Vector2f(300, 75));
-	button1.setPosition(Vector2f((800-300)/2, 150));
-
-	button2.setSize(Vector2f(300, 75));
-	button2.setPosition(Vector2f((800 - 300) / 2, 250));
-
-	button3.setSize(Vector2f(300, 75));
-	button3.setPosition(Vector2f((800 - 300) / 2, 350));
-
-	button4.setSize(Vector2f(300, 75));
-	button4.setPosition(Vector2f((800 - 300) / 2, 450));
 
 	while (window.isOpen())
 	{
@@ -69,10 +59,10 @@ int main() {
 		window.clear(Color::Black);
 
 		window.draw(background);
-		window.draw(button1);
-		window.draw(button2);
-		window.draw(button3);
-		window.draw(button4);
+		button1.draw(window);
+		button2.draw(window);
+		button3.draw(window);
+		button4.draw(window);
 
 		window.display();
 	}

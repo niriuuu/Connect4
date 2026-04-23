@@ -9,5 +9,6 @@ private:
 public:
 	Button(const char* name, sf::Vector2f size, sf::Vector2f pos, sf::Color color);
 
+	void draw(sf::RenderWindow& window) const;
 };
 
