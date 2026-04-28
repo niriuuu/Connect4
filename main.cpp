@@ -44,12 +44,13 @@ int main() {
 					{
 						case Keyboard::Enter:
 						{
-							game.play(window);
+							
 							break;
 						}
 						default:
 							break;
 					}
+					break;
 				}
 				case Event::MouseMoved:
 				{
@@ -78,6 +79,27 @@ int main() {
 						button3.resetColor();
 						button4.resetColor();
 					}
+					break;
+				}
+				case Event::MouseButtonPressed:
+				{
+					if (button1.getActive())
+					{
+						game.play(window);
+					}
+					else if (button2.getActive())
+					{
+						
+					}
+					else if (button3.getActive())
+					{
+						
+					}
+					else if (button4.getActive())
+					{
+						exit(0);
+					}
+					break;
 				}
 				default:
 					break;

@@ -7,11 +7,14 @@ private:
 	sf::Text _text;
 	sf::Color _color;
 	sf::Color _highlightColor;
+	bool _active;
 
 public:
 	Button(const char* name, sf::Vector2f size, sf::Vector2f pos, sf::Color color);
 
 	sf::RectangleShape& getRectangle();
+
+	bool getActive() const;
 
 	void highlight();
 
