@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Game.h"
 #include "Button.h"
+#include "mesFonctions.h"
 
 using namespace sf;
 using namespace std;
@@ -14,7 +15,6 @@ int main() {
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	/*RectangleShape button1;*/
 	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 150), Color::Black);
 	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 250), Color::Black);
 	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 350), Color::Black);
@@ -105,7 +105,7 @@ int main() {
 					}
 					else if (button2.getActive())
 					{
-						
+						showStats(window);
 					}
 					else if (button3.getActive())
 					{
