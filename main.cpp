@@ -29,13 +29,13 @@ int main() {
 
 	SoundBuffer collisionSoundBuffer;
 
-	if (!collisionSoundBuffer.loadFromFile("collisionSound.wav")) // On charge la musique du jeu
+	if (!collisionSoundBuffer.loadFromFile("ressources/collisionSound.wav")) // On charge la musique du jeu
 		exit(1);
 
 	SoundBuffer mainMusicBuffer;
 	Sound mainMusic;
 
-	if (!mainMusicBuffer.loadFromFile("mainMusic.wav"))
+	if (!mainMusicBuffer.loadFromFile("ressources/mainMusic.wav"))
 		return 1;
 
 	mainMusic.setBuffer(mainMusicBuffer); // On applique la musique charg�e � l�objet de type "Sound"

@@ -20,7 +20,7 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	_xPos = xPos;
 	_yPos = yPos;
 
-	if (!_textureGrid.loadFromFile("Grid.png")) {
+	if (!_textureGrid.loadFromFile("ressources/Grid.png")) {
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
 	}
 
