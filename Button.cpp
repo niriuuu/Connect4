@@ -6,6 +6,7 @@ using namespace std;
 
 Button::Button(const char* name, sf::Vector2f size, sf::Vector2f pos, sf::Color color)
 {
+	_active = false;
 	_color = color;
 	Color highlight(30, 30, 30, 0);
 	_highlightColor = color + highlight;
@@ -28,7 +29,10 @@ sf::RectangleShape& Button::getRectangle()
 	return _rectangle;
 }
 
-
+bool Button::getActive() const
+{
+	return _active;
+}
 
 void Button::highlight()
 {
@@ -42,8 +46,13 @@ void Button::resetColor()
 
 bool Button::isHovered(Vector2f mousePosF)
 {
-	if(_rectangle.getGlobalBounds().contains(mousePosF))
+	if (_rectangle.getGlobalBounds().contains(mousePosF))
+	{
+		_active = true;
 		return true;
+	}
+
+	_active = false;
 	return false;
 }
 

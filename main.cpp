@@ -38,7 +38,7 @@ int main() {
 	if (!mainMusicBuffer.loadFromFile("mainMusic.wav"))
 		return 1;
 
-	mainMusic.setBuffer(mainMusicBuffer); // On applique la musique chargée à l’objet de type "Sound"
+	mainMusic.setBuffer(mainMusicBuffer); // On applique la musique chargï¿½e ï¿½ lï¿½objet de type "Sound"
 	mainMusic.setLoop(true); // La musique jouera en boucle
 	mainMusic.play(); // On fait jouer la musique
 
@@ -66,6 +66,7 @@ int main() {
 						default:
 							break;
 					}
+					break;
 				}
 				case Event::MouseMoved:
 				{
@@ -94,6 +95,27 @@ int main() {
 						button3.resetColor();
 						button4.resetColor();
 					}
+					break;
+				}
+				case Event::MouseButtonPressed:
+				{
+					if (button1.getActive())
+					{
+						game.play(window);
+					}
+					else if (button2.getActive())
+					{
+						
+					}
+					else if (button3.getActive())
+					{
+						
+					}
+					else if (button4.getActive())
+					{
+						exit(0);
+					}
+					break;
 				}
 				default:
 					break;
