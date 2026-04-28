@@ -183,6 +183,8 @@ void Game::handleEvent(Event& event, RenderWindow& window)
 void Game::validateGame(int joueur, Grid& grid)
 {
 	int compteur = 0;
+	int x = 0;
+	int y = 0;
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -222,6 +224,66 @@ void Game::validateGame(int joueur, Grid& grid)
 			if (compteur == 4)
 			{
 				_gameOver = joueur;
+			}
+		}
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			compteur = 0;
+			int x = i;
+			int y = j;
+
+			while (x < 6 && y < 7)
+			{
+				if (grid.getSpace(x, y) == joueur)
+				{
+					compteur++;
+				}
+				else
+				{
+					compteur = 0;
+				}
+
+				if (compteur == 4)
+				{
+					_gameOver = joueur;
+				}
+
+				x++;
+				y++;
+			}
+		}
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			compteur = 0;
+			int x = i;
+			int y = j;
+
+			while (x >= 0 && x < 6 && y < 7)
+			{
+				if (grid.getSpace(x, y) == joueur)
+				{
+					compteur++;
+				}
+				else
+				{
+					compteur = 0;
+				}
+
+				if (compteur == 4)
+				{
+					_gameOver = joueur;
+				}
+
+				x--;
+				y++;
 			}
 		}
 	}
