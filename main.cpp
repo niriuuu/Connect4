@@ -15,10 +15,21 @@ int main() {
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 150), Color::Black);
-	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 250), Color::Black);
-	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 350), Color::Black);
-	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 450), Color::Black);
+	Text title;
+	Font font;
+
+	if (!font.loadFromFile("angelina.ttf"))
+		exit(1);
+	title.setFont(font);
+	title.setString("CONNECT 4");
+	title.setCharacterSize(100);
+	title.setFillColor(Color::White);
+	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+
+	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 175), Color::Black);
+	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 275), Color::Black);
+	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
+	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 475), Color::Black);
 	
 	Game game;
 
@@ -125,6 +136,7 @@ int main() {
 		window.clear(Color::Black);
 
 		window.draw(background);
+		window.draw(title);
 		button1.draw(window);
 		button2.draw(window);
 		button3.draw(window);
