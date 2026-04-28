@@ -101,7 +101,7 @@ int main() {
 				{
 					if (button1.getActive())
 					{
-						game.play(window);
+						game.play(window, collisionSoundBuffer);
 					}
 					else if (button2.getActive())
 					{
