@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "Grid.h"
 #include "Game.h"
@@ -26,6 +27,21 @@ int main() {
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
 
+	SoundBuffer collisionSoundBuffer;
+
+	if (!collisionSoundBuffer.loadFromFile("collisionSound.wav")) // On charge la musique du jeu
+		exit(1);
+
+	SoundBuffer mainMusicBuffer;
+	Sound mainMusic;
+
+	if (!mainMusicBuffer.loadFromFile("mainMusic.wav"))
+		return 1;
+
+	mainMusic.setBuffer(mainMusicBuffer); // On applique la musique chargée à l’objet de type "Sound"
+	mainMusic.setLoop(true); // La musique jouera en boucle
+	mainMusic.play(); // On fait jouer la musique
+
 	while (window.isOpen())
 	{
 		Event event;
@@ -44,7 +60,7 @@ int main() {
 					{
 						case Keyboard::Enter:
 						{
-							game.play(window);
+							game.play(window, collisionSoundBuffer);
 							break;
 						}
 						default:

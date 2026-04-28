@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Game.h"
 #include "Grid.h"
 #include "Token.h"
@@ -16,13 +17,14 @@ Game::~Game()
 {
 }
 
-int Game::play(RenderWindow& window)
+int Game::play(RenderWindow& window, SoundBuffer buffer)
 {
 	int winner = 0;
 	const int moveDistance = 66;
 	int activeColumn = 3;
 	int activeRow = 0;
 	int lowBound = 500 - 16;
+	Sound collisionSound;
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -87,6 +89,8 @@ int Game::play(RenderWindow& window)
 
 				if (token.getCircle().getPosition().y + token.getCircle().getRadius() >= lowBound - activeRow * (moveDistance + 9))
 				{
+					playSound(collisionSound, buffer);
+
 					if (_playerTurn == 1)
 					{	
 						tokens.push_back(token);
@@ -287,4 +291,10 @@ void Game::validateGame(int joueur, Grid& grid)
 			}
 		}
 	}
+}
+
+void Game::playSound(Sound &sound, SoundBuffer &buffer)
+{
+	sound.setBuffer(buffer); // On applique la musique chargée à l’objet de type "Sound"
+	sound.play(); // On fait jouer la musique
 }
