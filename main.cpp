@@ -109,7 +109,7 @@ int main() {
 					}
 					else if (button3.getActive())
 					{
-						
+						showSettings(window);
 					}
 					else if (button4.getActive())
 					{
