@@ -28,7 +28,7 @@ int main() {
 
 	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 175), Color::Black);
 	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 275), Color::Black);
-	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
+	Button button3("Instructions", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
 	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 475), Color::Black);
 	
 	Game game;
@@ -112,6 +112,7 @@ int main() {
 				{
 					if (button1.getActive())
 					{
+
 						game.play(window, collisionSoundBuffer);
 					}
 					else if (button2.getActive())
@@ -120,7 +121,7 @@ int main() {
 					}
 					else if (button3.getActive())
 					{
-						showSettings(window);
+						showInstructions(window);
 					}
 					else if (button4.getActive())
 					{
