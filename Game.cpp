@@ -19,6 +19,9 @@ Game::~Game()
 
 int Game::play(RenderWindow& window, SoundBuffer buffer)
 {
+	_gameOver = false;
+	_playerTurn = 1;
+
 	int winner = 0;
 	const int moveDistance = 66;
 	int activeColumn = 3;
