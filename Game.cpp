@@ -72,9 +72,14 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 		if (_dir == DOWN)
 		{
 			activeRow = 0;
-			while (grid.getSpace(activeRow, activeColumn) != 0 && activeRow < 6)
+			while (grid.getSpace(activeRow, activeColumn) != 0)
 			{
 				activeRow++;
+				if (activeRow == 6)
+				{
+					_dir = NONE;
+					break;
+				}
 			}
 		}
 
@@ -83,7 +88,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 		if (time.asMilliseconds() >= 10) 
 		{
-			if (_dir == DOWN && activeRow < 6)
+			if (_dir == DOWN)
 			{
 				token.getCircle().move(0, 10);
 
