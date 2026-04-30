@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <map>
+#include <fstream>
 #include "mesFonctions.h"
 #include "Button.h"
 
@@ -18,11 +19,6 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	Font font;
 
 	string content;
-
-	/*int gamesPlayed = 0;
-	int p1Wins = 0;
-	int p2Wins = 0;
-	int draws = 0;*/
 
 	bool goBack = false;
 
@@ -175,4 +171,42 @@ void showInstructions(sf::RenderWindow& window)
 			window.display();
 		}
 	}
+}
+
+void save(std::map<std::string, int>& stats)
+{
+	ofstream save("save.txt");
+
+	if (!save)
+	{
+		exit(1);
+	}
+
+	save << stats["gamesPlayed"] << " " << stats["p1Wins"] << " " << stats["p2Wins"] << " " << stats["draws"];
+
+	save.close();
+}
+
+void load(std::map<std::string, int>& stats)
+{
+	ifstream load("save.txt");
+
+	int gamesPlayed = 0;
+	int p1Wins = 0;
+	int p2Wins = 0;
+	int draws = 0;
+
+	if (!save)
+	{
+		exit(1);
+	}
+
+	load >> gamesPlayed >> p1Wins >> p2Wins >> draws;
+
+	stats["gamesPlayed"] = gamesPlayed;
+	stats["p1Wins"] = p1Wins;
+	stats["p2Wins"] = p2Wins;
+	stats["draws"] = draws;
+
+	load.close();
 }
