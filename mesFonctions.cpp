@@ -91,29 +91,43 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	}
 }
 
-void showSettings(sf::RenderWindow& window)
+void showInstructions(sf::RenderWindow& window)
 {
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
+
+	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
 
 	Text text;
 	Font font;
 
 	string content;
 
-	content = string("a") + "b";
+	bool goBack = false;
 
+	Text title;
+
+	content = string("The rules :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
 	text.setFont(font);
 	text.setString(content);
 	text.setCharacterSize(30);
 	text.setFillColor(Color::White);
+	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+
+	if (!font.loadFromFile("angelina.ttf"))
+		exit(1);
+	title.setFont(font);
+	title.setString("Instructions");
+	title.setCharacterSize(100);
+	title.setFillColor(Color::White);
+	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
 
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
 
-	while (window.isOpen())
+	while (window.isOpen() && !goBack)
 	{
 		Event event;
 		while (window.pollEvent(event))
@@ -125,6 +139,28 @@ void showSettings(sf::RenderWindow& window)
 				window.close();
 				break;
 			}
+			case Event::MouseMoved:
+			{
+				Vector2i mousePos = Mouse::getPosition(window);
+				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+				if (exitButton.isHovered(mousePosF))
+				{
+					exitButton.highlight();
+				}
+				else
+				{
+					exitButton.resetColor();
+				}
+				break;
+			}
+			case Event::MouseButtonPressed:
+			{
+				if (exitButton.getActive())
+				{
+					goBack = true;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -132,7 +168,9 @@ void showSettings(sf::RenderWindow& window)
 			window.clear(Color::Black);
 
 			window.draw(background);
+			exitButton.draw(window);
 			window.draw(text);
+			window.draw(title);
 
 			window.display();
 		}
