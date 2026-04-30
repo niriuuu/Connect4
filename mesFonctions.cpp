@@ -14,8 +14,10 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
 	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
+	Button resetButton("Reset data", Vector2f(300, 75), Vector2f((window.getSize().x - 300) / 2, window.getSize().y - 130), Color::Black);
 
 	Text text;
+	Text title;
 	Font font;
 
 	string content;
@@ -35,9 +37,15 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 		exit(1);
 	text.setFont(font);
 	text.setString(content);
-	text.setCharacterSize(50);
+	text.setCharacterSize(30);
 	text.setFillColor(Color::White);
 	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+
+	title.setFont(font);
+	title.setString("Stats");
+	title.setCharacterSize(100);
+	title.setFillColor(Color::White);
+	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
 
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
@@ -84,6 +92,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 				window.draw(background);
 				exitButton.draw(window);
+				resetButton.draw(window);
+				window.draw(title);
 				window.draw(text);
 
 				window.display();
