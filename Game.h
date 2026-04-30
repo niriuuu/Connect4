@@ -5,6 +5,7 @@ class Game
 private:
 	bool _gameOver;
 	int _playerTurn;
+	sf::Texture _textureBackground;
 
 	const enum Directions { NONE, LEFT, RIGHT, DOWN };
 	Directions _dir = NONE;

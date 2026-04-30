@@ -24,6 +24,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	int activeColumn = 3;
 	int activeRow = 0;
 	int lowBound = 500 - 16;
+	int compteur = 0;
 	Sound collisionSound;
 
 	RectangleShape background;
@@ -41,7 +42,12 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	Font font;
 	
 	background.setSize(Vector2f(800, 600));
-	background.setFillColor(backgroundColor);
+
+	if (!_textureBackground.loadFromFile("ressources/Background.jpg")) {
+		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+	}
+
+	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
@@ -138,6 +144,15 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 						_gameOver = true;
 						winner = 2;
 						winText.setString("Player 2 wins!");
+					}
+
+					compteur++;
+
+					if (compteur == 42)
+					{
+						_gameOver = true;
+						winner = 0;
+						winText.setString("Draw!");
 					}
 				}
 			}
