@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <map>
 #include "mesFonctions.h"
 #include "Button.h"
 
 using namespace sf;
 using namespace std;
 
-void showStats(sf::RenderWindow& window)
+void showStats(RenderWindow& window, map<string, int>& stats)
 {
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -18,17 +19,17 @@ void showStats(sf::RenderWindow& window)
 
 	string content;
 
-	int gamesPlayed = 0;
+	/*int gamesPlayed = 0;
 	int p1Wins = 0;
 	int p2Wins = 0;
-	int draws = 0;
+	int draws = 0;*/
 
 	bool goBack = false;
 
-	content = string("Games played: ") + to_string(gamesPlayed)
-		+ "\nPlayer 1 wins: " + to_string(p1Wins)
-		+ "\nPlayer 2 wins: " + to_string(p2Wins)
-		+"\nDraws: " + to_string(draws);
+	content = string("Games played: ") + to_string(stats["gamesPlayed"])
+		+ "\nPlayer 1 wins: " + to_string(stats["p1Wins"])
+		+ "\nPlayer 2 wins: " + to_string(stats["p2Wins"])
+		+"\nDraws: " + to_string(stats["draws"]);
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);

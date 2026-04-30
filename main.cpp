@@ -18,14 +18,6 @@ int main() {
 	Text title;
 	Font font;
 
-	if (!font.loadFromFile("angelina.ttf"))
-		exit(1);
-	title.setFont(font);
-	title.setString("CONNECT 4");
-	title.setCharacterSize(100);
-	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
-
 	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 175), Color::Black);
 	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 275), Color::Black);
 	Button button3("Settings", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
@@ -33,10 +25,29 @@ int main() {
 	
 	Game game;
 
+	/*int gamesPlayed = 0;
+	int p1Wins = 0;
+	int p2Wins = 0;
+	int draws = 0;*/
+
+	map<string, int> stats;
+	stats.emplace("gamesPlayed", 0);
+	stats.emplace("p1Wins", 0);
+	stats.emplace("p2Wins", 0);
+	stats.emplace("draws", 0);
+
 	window.setFramerateLimit(60);
 
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
+
+	if (!font.loadFromFile("angelina.ttf"))
+		exit(1);
+	title.setFont(font);
+	title.setString("CONNECT 4");
+	title.setCharacterSize(100);
+	title.setFillColor(Color::White);
+	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
 
 	SoundBuffer collisionSoundBuffer;
 
@@ -112,11 +123,25 @@ int main() {
 				{
 					if (button1.getActive())
 					{
-						game.play(window, collisionSoundBuffer);
+						switch (game.play(window, collisionSoundBuffer))
+						{
+						case 0:
+							stats["draws"]++;
+							break;
+						case 1:
+							stats["p1Wins"]++;
+							break;
+						case 2:
+							stats["p2Wins"]++;
+							break;
+						default:
+							break;
+						}
+						;
 					}
 					else if (button2.getActive())
 					{
-						showStats(window);
+						showStats(window, stats);
 					}
 					else if (button3.getActive())
 					{

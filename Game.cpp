@@ -36,9 +36,19 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 	Clock clock;
 	Time time;
+
+	Text winText;
+	Font font;
 	
 	background.setSize(Vector2f(800, 600));
 	background.setFillColor(backgroundColor);
+
+	if (!font.loadFromFile("angelina.ttf"))
+		exit(1);
+	winText.setFont(font);
+	winText.setCharacterSize(100);
+	winText.setFillColor(Color::White);
+	
 
 	//grid.setSize(Vector2f(500, 500));
 	//grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
@@ -117,9 +127,18 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 					activeRow = 0;
 
 					//validateur
-					validateGame(1, grid);
-					validateGame(2, grid);
-
+					if (validateGame(1, grid))
+					{
+						_gameOver = true;
+						winner = 1;
+						winText.setString("Player 1 wins!");
+					}
+					else if (validateGame(2, grid))
+					{
+						_gameOver = true;
+						winner = 2;
+						winText.setString("Player 2 wins!");
+					}
 				}
 			}
 
@@ -137,7 +156,16 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 			window.draw(grid.getRectangle());
 
+			if (_gameOver)
+			{
+				winText.setPosition((window.getSize().x - winText.getGlobalBounds().width) / 2, window.getSize().y / 2 - winText.getCharacterSize());
+				window.draw(winText);
+			}	
+
 			window.display();
+
+			if (_gameOver)
+				sleep(seconds(3));
 
 			clock.restart();
 		}
@@ -189,7 +217,7 @@ void Game::handleEvent(Event& event, RenderWindow& window)
 	}
 }
 
-void Game::validateGame(int joueur, Grid& grid)
+bool Game::validateGame(int joueur, Grid& grid)
 {
 	int compteur = 0;
 	int x = 0;
@@ -211,7 +239,7 @@ void Game::validateGame(int joueur, Grid& grid)
 
 			if (compteur == 4)
 			{
-				_gameOver = joueur;
+				return true;
 			}
 		}
 	}
@@ -232,7 +260,7 @@ void Game::validateGame(int joueur, Grid& grid)
 
 			if (compteur == 4)
 			{
-				_gameOver = joueur;
+				return true;
 			}
 		}
 	}
@@ -258,7 +286,7 @@ void Game::validateGame(int joueur, Grid& grid)
 
 				if (compteur == 4)
 				{
-					_gameOver = joueur;
+					return true;
 				}
 
 				x++;
@@ -288,7 +316,7 @@ void Game::validateGame(int joueur, Grid& grid)
 
 				if (compteur == 4)
 				{
-					_gameOver = joueur;
+					return true;
 				}
 
 				x--;
@@ -296,6 +324,8 @@ void Game::validateGame(int joueur, Grid& grid)
 			}
 		}
 	}
+
+	return false;
 }
 
 void Game::playSound(Sound &sound, SoundBuffer &buffer)
