@@ -22,16 +22,20 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 	bool goBack = false;
 
-	content = string("Games played: ") + to_string(stats["gamesPlayed"])
-		+ "\nPlayer 1 wins: " + to_string(stats["p1Wins"])
-		+ "\nPlayer 2 wins: " + to_string(stats["p2Wins"])
-		+"\nDraws: " + to_string(stats["draws"]);
+	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
+		+"\n\nDraws: " + "           " + to_string(stats["draws"]);
+	/*content = string("Games played:\t") + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins:\t" + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins:\t" + to_string(stats["p2Wins"])
+		+ "\n\nDraws:\t\t\t" + to_string(stats["draws"]);*/
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
 	text.setFont(font);
 	text.setString(content);
-	text.setCharacterSize(30);
+	text.setCharacterSize(50);
 	text.setFillColor(Color::White);
 	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
 
