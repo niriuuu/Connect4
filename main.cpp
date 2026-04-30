@@ -25,16 +25,12 @@ int main() {
 	
 	Game game;
 
-	/*int gamesPlayed = 0;
-	int p1Wins = 0;
-	int p2Wins = 0;
-	int draws = 0;*/
-
 	map<string, int> stats;
 	stats.emplace("gamesPlayed", 0);
 	stats.emplace("p1Wins", 0);
 	stats.emplace("p2Wins", 0);
 	stats.emplace("draws", 0);
+	load(stats);
 
 	window.setFramerateLimit(60);
 
@@ -73,21 +69,8 @@ int main() {
 			{
 				case Event::Closed:
 				{
+					save(stats);
 					window.close();
-					break;
-				}
-				case Event::KeyPressed:
-				{
-					switch (event.key.code)
-					{
-						case Keyboard::Enter:
-						{
-							game.play(window, collisionSoundBuffer);
-							break;
-						}
-						default:
-							break;
-					}
 					break;
 				}
 				case Event::MouseMoved:
@@ -137,7 +120,7 @@ int main() {
 						default:
 							break;
 						}
-						;
+						stats["gamesPlayed"]++;
 					}
 					else if (button2.getActive())
 					{
@@ -149,6 +132,7 @@ int main() {
 					}
 					else if (button4.getActive())
 					{
+						save(stats);
 						exit(0);
 					}
 					break;

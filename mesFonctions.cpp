@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <map>
+#include <fstream>
 #include "mesFonctions.h"
 #include "Button.h"
 
@@ -19,23 +20,22 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 	string content;
 
-	/*int gamesPlayed = 0;
-	int p1Wins = 0;
-	int p2Wins = 0;
-	int draws = 0;*/
-
 	bool goBack = false;
 
-	content = string("Games played: ") + to_string(stats["gamesPlayed"])
-		+ "\nPlayer 1 wins: " + to_string(stats["p1Wins"])
-		+ "\nPlayer 2 wins: " + to_string(stats["p2Wins"])
-		+"\nDraws: " + to_string(stats["draws"]);
+	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
+		+"\n\nDraws: " + "           " + to_string(stats["draws"]);
+	/*content = string("Games played:\t") + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins:\t" + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins:\t" + to_string(stats["p2Wins"])
+		+ "\n\nDraws:\t\t\t" + to_string(stats["draws"]);*/
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
 	text.setFont(font);
 	text.setString(content);
-	text.setCharacterSize(30);
+	text.setCharacterSize(50);
 	text.setFillColor(Color::White);
 	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
 
@@ -175,4 +175,42 @@ void showInstructions(sf::RenderWindow& window)
 			window.display();
 		}
 	}
+}
+
+void save(std::map<std::string, int>& stats)
+{
+	ofstream save("save.txt");
+
+	if (!save)
+	{
+		exit(1);
+	}
+
+	save << stats["gamesPlayed"] << " " << stats["p1Wins"] << " " << stats["p2Wins"] << " " << stats["draws"];
+
+	save.close();
+}
+
+void load(std::map<std::string, int>& stats)
+{
+	ifstream load("save.txt");
+
+	int gamesPlayed = 0;
+	int p1Wins = 0;
+	int p2Wins = 0;
+	int draws = 0;
+
+	if (!save)
+	{
+		exit(1);
+	}
+
+	load >> gamesPlayed >> p1Wins >> p2Wins >> draws;
+
+	stats["gamesPlayed"] = gamesPlayed;
+	stats["p1Wins"] = p1Wins;
+	stats["p2Wins"] = p2Wins;
+	stats["draws"] = draws;
+
+	load.close();
 }
