@@ -5,12 +5,13 @@
 #include "Game.h"
 #include "Button.h"
 #include "mesFonctions.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
 
 int main() {
-	RenderWindow window(VideoMode(800, 600), "My window");
+	RenderWindow window(VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "Connect 4");
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
@@ -18,10 +19,12 @@ int main() {
 	Text title;
 	Font font;
 
-	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 175), Color::Black);
-	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 275), Color::Black);
-	Button button3("Instructions", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
-	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 475), Color::Black);
+	const Vector2f buttonSize(300, 75);
+
+	Button button1("Play", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 175), Color::Black);
+	Button button2("Stats", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 275), Color::Black);
+	Button button3("Instructions", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 375), Color::Black);
+	Button button4("Quit", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 475), Color::Black);
 	
 	Game game;
 
@@ -34,7 +37,7 @@ int main() {
 
 	window.setFramerateLimit(60);
 
-	background.setSize(Vector2f(800, 600));
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(backgroundColor);
 
 	if (!font.loadFromFile("angelina.ttf"))
@@ -43,7 +46,7 @@ int main() {
 	title.setString("CONNECT 4");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+	title.setPosition((WINDOWWIDTH - title.getGlobalBounds().width) / 2, 10);
 
 	SoundBuffer collisionSoundBuffer;
 

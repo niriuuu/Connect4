@@ -1,15 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include "Token.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
 
 Token::Token(Color color)
 {
-	_defaultPos.x = 370;
-	_defaultPos.y = 30;
+	_defaultPos.x = WINDOWWIDTH / 2 - TOKENSIZE / 2;
+	_defaultPos.y = TOKENSIZE;
 
-	_circle.setRadius(30);
+	_circle.setRadius(29);
 	_circle.setPosition(_defaultPos);
 	_circle.setFillColor(color);
 	_circle.setOutlineColor(Color::Black);

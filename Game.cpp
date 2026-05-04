@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Grid.h"
 #include "Token.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
@@ -19,21 +20,28 @@ Game::~Game()
 
 int Game::play(RenderWindow& window, SoundBuffer buffer)
 {
+	Grid grid(GRIDWIDTH, GRIDHEIGHT, (WINDOWWIDTH - GRIDWIDTH) / 2, (WINDOWHEIGHT - GRIDHEIGHT) / 2);
+
+	int winner = 0;
+	
+	const int horizontalBorder = 8;
+	const int verticalBorder = 17;
+	const int moveDistance = TOKENSIZE + horizontalBorder;
+	//int lowBound =GRIDHEIGHT - 16;
+	int lowBound = grid.getRectangle().getPosition().y + GRIDHEIGHT;
+	int activeColumn = 3;
+	int activeRow = 0;
+	int compteur = 0;
+
 	_gameOver = false;
 	_playerTurn = 1;
 
-	int winner = 0;
-	const int moveDistance = 66;
-	int activeColumn = 3;
-	int activeRow = 0;
-	int lowBound = 500 - 16;
-	int compteur = 0;
 	Sound collisionSound;
 
 	RectangleShape background;
 	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Grid grid(500, 500, 150, 50);
+	
 
 	Token token(Color::Blue);
 	vector<Token> tokens;
@@ -44,7 +52,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	Text winText;
 	Font font;
 	
-	background.setSize(Vector2f(800, 600));
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 
 	if (!_textureBackground.loadFromFile("ressources/Background.jpg")) {
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
@@ -111,8 +119,10 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 			{
 				token.getCircle().move(0, 10);
 
-				if (token.getCircle().getPosition().y + token.getCircle().getRadius() >= lowBound - activeRow * (moveDistance + 9))
+				if (token.getCircle().getPosition().y + token.getCircle().getRadius() >= (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)))
 				{
+					//token.getCircle().setPosition(token.getCircle().getPosition().x, lowBound - activeRow * (moveDistance + 9));
+					token.getCircle().setPosition(token.getCircle().getPosition().x, (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)));
 					playSound(collisionSound, buffer);
 
 					if (_playerTurn == 1)
