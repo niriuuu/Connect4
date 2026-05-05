@@ -28,11 +28,8 @@ int main() {
 	
 	Game game;
 
-	map<string, int> stats;
-	stats.emplace("gamesPlayed", 0);
-	stats.emplace("p1Wins", 0);
-	stats.emplace("p2Wins", 0);
-	stats.emplace("draws", 0);
+	map<string, int> stats = { {"gamesPlayed", 0}, {"p1Wins", 0}, {"p2Wins", 0}, {"draws", 0} };
+
 	load(stats);
 
 	window.setFramerateLimit(60);

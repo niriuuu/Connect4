@@ -2,6 +2,10 @@
 
 void showStats(sf::RenderWindow& window, std::map<std::string, int>& stats);
 
+void resetStats(std::map<std::string, int>& stats);
+
+void updateContent(std::string& content, std::map<std::string, int>& stats);
+
 void showInstructions(sf::RenderWindow& window);
 
 void save(std::map<std::string, int>& stats);

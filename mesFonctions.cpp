@@ -4,6 +4,7 @@
 #include <fstream>
 #include "mesFonctions.h"
 #include "Button.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
@@ -24,14 +25,7 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 	bool goBack = false;
 
-	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
-		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
-		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
-		+"\n\nDraws: " + "           " + to_string(stats["draws"]);
-	/*content = string("Games played:\t") + to_string(stats["gamesPlayed"])
-		+ "\n\nPlayer 1 wins:\t" + to_string(stats["p1Wins"])
-		+ "\n\nPlayer 2 wins:\t" + to_string(stats["p2Wins"])
-		+ "\n\nDraws:\t\t\t" + to_string(stats["draws"]);*/
+	updateContent(content, stats);
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
@@ -47,7 +41,7 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	title.setFillColor(Color::White);
 	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
 
-	background.setSize(Vector2f(800, 600));
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(backgroundColor);
 
 	while (window.isOpen() && !goBack)
@@ -59,6 +53,7 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 			{
 				case Event::Closed:
 				{
+					save(stats);
 					window.close();
 					break;
 				}
@@ -70,9 +65,14 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 					{
 						exitButton.highlight();
 					}
+					else if (resetButton.isHovered(mousePosF))
+					{
+						resetButton.highlight();
+					}
 					else
 					{
 						exitButton.resetColor();
+						resetButton.resetColor();
 					}
 					break;
 				}
@@ -81,6 +81,12 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 					if (exitButton.getActive())
 					{
 						goBack = true;
+					}
+					else if (resetButton.getActive())
+					{
+						resetStats(stats);
+						updateContent(content, stats);
+						text.setString(content);
 					}
 					break;
 				}
@@ -99,6 +105,22 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 				window.display();
 		}
 	}
+}
+
+void resetStats(std::map<std::string, int>& stats)
+{
+	for (auto& s : stats)
+	{
+		s.second = 0;
+	}
+}
+
+void updateContent(std::string& content, std::map<std::string, int>& stats)
+{
+	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
+		+ "\n\nDraws: " + "           " + to_string(stats["draws"]);
 }
 
 void showInstructions(sf::RenderWindow& window)
@@ -134,7 +156,7 @@ void showInstructions(sf::RenderWindow& window)
 	title.setFillColor(Color::White);
 	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
 
-	background.setSize(Vector2f(800, 600));
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(backgroundColor);
 
 	while (window.isOpen() && !goBack)
