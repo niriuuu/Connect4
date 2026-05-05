@@ -27,8 +27,8 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	const int horizontalBorder = 8;
 	const int verticalBorder = 17;
 	const int moveDistance = TOKENSIZE + horizontalBorder;
-	//int lowBound =GRIDHEIGHT - 16;
-	int lowBound = grid.getRectangle().getPosition().y + GRIDHEIGHT;
+	const int lowBound = grid.getRectangle().getPosition().y + GRIDHEIGHT;
+
 	int activeColumn = 3;
 	int activeRow = 0;
 	int compteur = 0;
@@ -39,9 +39,6 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	Sound collisionSound;
 
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
-
-	
 
 	Token token(Color::Blue);
 	vector<Token> tokens;
@@ -65,49 +62,49 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	winText.setFont(font);
 	winText.setCharacterSize(100);
 	winText.setFillColor(Color::White);
-	
-
-	//grid.setSize(Vector2f(500, 500));
-	//grid.setPosition(Vector2f((window.getSize().x - grid.getSize().x) / 2, (window.getSize().y - grid.getSize().y) / 2)); //Positionne la grille au centre de la fenetre
+	winText.setOutlineColor(Color::Black);
+	winText.setOutlineThickness(2);
 
 	while (window.isOpen() && !_gameOver)
 	{
 		Event event;
 		handleEvent(event, window);
 
-		if (_dir == LEFT)
+		switch (_dir)
 		{
-			if (token.getCircle().getPosition().x > grid.getRectangle().getGlobalBounds().left + token.getCircle().getRadius())
-			{
-				token.getCircle().move(-moveDistance, 0);
-				activeColumn--;
-			}
-				
-			_dir = NONE;
-		}
-		else if (_dir == RIGHT)
-		{
-			if (token.getCircle().getPosition().x < grid.getRectangle().getGlobalBounds().left + 500 - 100)
-			{
-				token.getCircle().move(moveDistance, 0);
-				activeColumn++;
-			}
-				
-			_dir = NONE;
-		}
-
-		if (_dir == DOWN)
-		{
-			activeRow = 0;
-			while (grid.getSpace(activeRow, activeColumn) != 0)
-			{
-				activeRow++;
-				if (activeRow == 6)
+			case LEFT:
+				if (token.getCircle().getPosition().x > grid.getRectangle().getGlobalBounds().left + token.getCircle().getRadius())
 				{
-					_dir = NONE;
-					break;
+					token.getCircle().move(-moveDistance, 0);
+					activeColumn--;
 				}
-			}
+				_dir = NONE;
+				break;
+
+			case RIGHT:
+				if (token.getCircle().getPosition().x < grid.getRectangle().getGlobalBounds().left + 500 - 100)
+				{
+					token.getCircle().move(moveDistance, 0);
+					activeColumn++;
+				}
+				_dir = NONE;
+				break;
+
+			case DOWN:
+				activeRow = 0;
+				while (grid.getSpace(activeRow, activeColumn) != 0)
+				{
+					activeRow++;
+					if (activeRow == 6)
+					{
+						_dir = NONE;
+						break;
+					}
+				}
+				break;
+
+			default:
+				break;
 		}
 
 		/*Animation: chaque 10 millisecondes, le jeton se déplace de 10 pixels vers le bas jusqu'à-ce qu'il rencontre le bas de la grille(lowBound), ajusté selon la rangée active.*/
@@ -119,23 +116,21 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 			{
 				token.getCircle().move(0, 10);
 
-				if (token.getCircle().getPosition().y + token.getCircle().getRadius() >= (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)))
+				if (token.getCircle().getPosition().y >= (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)))
 				{
-					//token.getCircle().setPosition(token.getCircle().getPosition().x, lowBound - activeRow * (moveDistance + 9));
 					token.getCircle().setPosition(token.getCircle().getPosition().x, (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)));
+
 					playSound(collisionSound, buffer);
 
+					tokens.push_back(token);
+					grid.changeSpace(activeRow, activeColumn, _playerTurn);
 					if (_playerTurn == 1)
 					{	
-						tokens.push_back(token);
-						grid.changeSpace(activeRow, activeColumn, 1);
 						token.getCircle().setFillColor(Color::Red);
 						_playerTurn = 2;
 					}
 					else
 					{
-						tokens.push_back(token);
-						grid.changeSpace(activeRow, activeColumn, 2);
 						token.getCircle().setFillColor(Color::Blue);
 						_playerTurn = 1;
 					}
@@ -170,16 +165,15 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 				}
 			}
 
-
 			window.clear(Color::Black);
 
 			window.draw(background);
 
-			window.draw(token.getCircle());
+			token.draw(window);
 
 			for (int i = 0; i < tokens.size(); i++)
 			{
-				window.draw(tokens[i].getCircle());
+				tokens[i].draw(window);
 			}
 
 			window.draw(grid.getRectangle());

@@ -14,17 +14,16 @@ int main() {
 	RenderWindow window(VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "Connect 4");
 
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
 	Text title;
 	Font font;
 
 	const Vector2f buttonSize(300, 75);
 
-	Button button1("Play", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 175), Color::Black);
-	Button button2("Stats", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 275), Color::Black);
-	Button button3("Instructions", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 375), Color::Black);
-	Button button4("Quit", buttonSize, Vector2f((WINDOWWIDTH - buttonSize.x) / 2, 475), Color::Black);
+	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), Color::Black);
+	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, 400), Color::Black);
+	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, 500), Color::Black);
+	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, 600), Color::Black);
 	
 	Game game;
 
@@ -35,7 +34,7 @@ int main() {
 	window.setFramerateLimit(60);
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
-	background.setFillColor(backgroundColor);
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
@@ -43,7 +42,8 @@ int main() {
 	title.setString("CONNECT 4");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((WINDOWWIDTH - title.getGlobalBounds().width) / 2, 10);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 120);
 
 	SoundBuffer collisionSoundBuffer;
 

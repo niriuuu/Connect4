@@ -32,3 +32,8 @@ void Token::resetPos()
 {
 	_circle.setPosition(_defaultPos);
 }
+
+void Token::draw(sf::RenderWindow& window) const
+{
+	window.draw(_circle);
+}

@@ -11,6 +11,9 @@ public:
 	~Token() = default;
 
 	sf::CircleShape& getCircle();
+
 	void resetPos();
+
+	void draw(sf::RenderWindow& window) const;
 };
 

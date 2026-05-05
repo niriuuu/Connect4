@@ -12,10 +12,9 @@ using namespace std;
 void showStats(RenderWindow& window, map<string, int>& stats)
 {
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
-	Button resetButton("Reset data", Vector2f(300, 75), Vector2f((window.getSize().x - 300) / 2, window.getSize().y - 130), Color::Black);
+	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), Color::Black);
+	Button resetButton("Reset data", Vector2f(300, 75), Vector2f(WINDOWWIDTH / 2, WINDOWHEIGHT - 130), Color::Black);
 
 	Text text;
 	Text title;
@@ -29,20 +28,23 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
+
 	text.setFont(font);
 	text.setString(content);
-	text.setCharacterSize(30);
+	text.setCharacterSize(48);
 	text.setFillColor(Color::White);
-	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
+	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
 
 	title.setFont(font);
 	title.setString("Stats");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 100);
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
-	background.setFillColor(backgroundColor);
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	while (window.isOpen() && !goBack)
 	{
@@ -126,9 +128,8 @@ void updateContent(std::string& content, std::map<std::string, int>& stats)
 void showInstructions(sf::RenderWindow& window)
 {
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
+	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), Color::Black);
 
 	Text text;
 	Font font;
@@ -140,24 +141,26 @@ void showInstructions(sf::RenderWindow& window)
 	Text title;
 
 	content = string("The rules :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
+
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
+
 	text.setFont(font);
 	text.setString(content);
 	text.setCharacterSize(30);
 	text.setFillColor(Color::White);
-	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
+	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
 
-	if (!font.loadFromFile("angelina.ttf"))
-		exit(1);
 	title.setFont(font);
 	title.setString("Instructions");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 100);
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
-	background.setFillColor(backgroundColor);
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	while (window.isOpen() && !goBack)
 	{
