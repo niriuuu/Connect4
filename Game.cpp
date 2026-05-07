@@ -57,7 +57,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
 
-	if (!font.loadFromFile("angelina.ttf"))
+	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 	winText.setFont(font);
 	winText.setCharacterSize(100);
