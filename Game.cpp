@@ -51,7 +51,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 
-	if (!_textureBackground.loadFromFile("ressources/Background.jpg")) {
+	if (!_textureBackground.loadFromFile("ressources/Background.png")) {
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
 	}
 

@@ -18,6 +18,8 @@ int main() {
 	Text title;
 	Font font;
 
+	sf::Texture _textureBackground;
+
 	const Vector2f buttonSize(300, 75);
 
 	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), Color::Black);
@@ -34,7 +36,12 @@ int main() {
 	window.setFramerateLimit(60);
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
-	background.setFillColor(BACKGROUNDCOLOR);
+
+	if (!_textureBackground.loadFromFile("ressources/Background.png")) {
+		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+	}
+
+	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
