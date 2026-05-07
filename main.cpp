@@ -24,7 +24,7 @@ int main() {
 
 	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), Color::Black);
 	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, 400), Color::Black);
-	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, 500), Color::Black);
+	Button button3("Rules", buttonSize, Vector2f(WINDOWWIDTH / 2, 500), Color::Black);
 	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, 600), Color::Black);
 	
 	Game game;
@@ -43,7 +43,7 @@ int main() {
 
 	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
 
-	if (!font.loadFromFile("angelina.ttf"))
+	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 	title.setFont(font);
 	title.setString("CONNECT 4");
@@ -54,7 +54,7 @@ int main() {
 
 	SoundBuffer collisionSoundBuffer;
 
-	if (!collisionSoundBuffer.loadFromFile("ressources/collisionSound.wav")) // On charge la musique du jeu
+	if (!collisionSoundBuffer.loadFromFile("ressources/TokenSound.ogg"))
 		exit(1);
 
 	SoundBuffer mainMusicBuffer;

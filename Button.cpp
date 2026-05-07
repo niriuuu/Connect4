@@ -16,7 +16,7 @@ Button::Button(const char* name, sf::Vector2f size, sf::Vector2f pos, sf::Color 
 	_rectangle.setPosition(pos);
 	_rectangle.setFillColor(_color);
 
-	if (!_font.loadFromFile("angelina.ttf"))
+	if (!_font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 
 	_text.setFont(_font);

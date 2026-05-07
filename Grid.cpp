@@ -19,6 +19,7 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	_height = height;
 	_xPos = xPos;
 	_yPos = yPos;
+	sf::Color GRIDCOLOR(253, 233, 11, 200);
 
 	if (!_textureGrid.loadFromFile("ressources/Grid.png")) {
 		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
@@ -27,6 +28,7 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	_rectangle.setTexture(&_textureGrid); // Applique la texture reellement souhaitee
 	_rectangle.setSize(Vector2f(_width, _height));
 	_rectangle.setPosition(Vector2f(_xPos, _yPos)); //Positionne la grille au centre de la fenetre
+	_rectangle.setFillColor(GRIDCOLOR);
 
 	initSpaces();
 }
