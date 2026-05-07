@@ -4,6 +4,7 @@
 #include <fstream>
 #include "mesFonctions.h"
 #include "Button.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
@@ -11,36 +12,39 @@ using namespace std;
 void showStats(RenderWindow& window, map<string, int>& stats)
 {
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
+	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), Color::Black);
+	Button resetButton("Reset data", Vector2f(300, 75), Vector2f(WINDOWWIDTH / 2, WINDOWHEIGHT - 130), Color::Black);
 
 	Text text;
+	Text title;
 	Font font;
 
 	string content;
 
 	bool goBack = false;
 
-	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
-		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
-		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
-		+"\n\nDraws: " + "           " + to_string(stats["draws"]);
-	/*content = string("Games played:\t") + to_string(stats["gamesPlayed"])
-		+ "\n\nPlayer 1 wins:\t" + to_string(stats["p1Wins"])
-		+ "\n\nPlayer 2 wins:\t" + to_string(stats["p2Wins"])
-		+ "\n\nDraws:\t\t\t" + to_string(stats["draws"]);*/
+	updateContent(content, stats);
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
+
 	text.setFont(font);
 	text.setString(content);
-	text.setCharacterSize(50);
+	text.setCharacterSize(48);
 	text.setFillColor(Color::White);
-	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
+	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
 
-	background.setSize(Vector2f(800, 600));
-	background.setFillColor(backgroundColor);
+	title.setFont(font);
+	title.setString("Stats");
+	title.setCharacterSize(100);
+	title.setFillColor(Color::White);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 100);
+
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	while (window.isOpen() && !goBack)
 	{
@@ -51,6 +55,7 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 			{
 				case Event::Closed:
 				{
+					save(stats);
 					window.close();
 					break;
 				}
@@ -62,9 +67,14 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 					{
 						exitButton.highlight();
 					}
+					else if (resetButton.isHovered(mousePosF))
+					{
+						resetButton.highlight();
+					}
 					else
 					{
 						exitButton.resetColor();
+						resetButton.resetColor();
 					}
 					break;
 				}
@@ -73,6 +83,12 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 					if (exitButton.getActive())
 					{
 						goBack = true;
+					}
+					else if (resetButton.getActive())
+					{
+						resetStats(stats);
+						updateContent(content, stats);
+						text.setString(content);
 					}
 					break;
 				}
@@ -84,6 +100,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 
 				window.draw(background);
 				exitButton.draw(window);
+				resetButton.draw(window);
+				window.draw(title);
 				window.draw(text);
 
 				window.display();
@@ -91,12 +109,27 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	}
 }
 
+void resetStats(std::map<std::string, int>& stats)
+{
+	for (auto& s : stats)
+	{
+		s.second = 0;
+	}
+}
+
+void updateContent(std::string& content, std::map<std::string, int>& stats)
+{
+	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
+		+ "\n\nDraws: " + "           " + to_string(stats["draws"]);
+}
+
 void showInstructions(sf::RenderWindow& window)
 {
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
-	Button exitButton("X", Vector2f(40, 40), Vector2f(10, 10), Color::Black);
+	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), Color::Black);
 
 	Text text;
 	Font font;
@@ -108,24 +141,26 @@ void showInstructions(sf::RenderWindow& window)
 	Text title;
 
 	content = string("The rules :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
+
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
+
 	text.setFont(font);
 	text.setString(content);
 	text.setCharacterSize(30);
 	text.setFillColor(Color::White);
-	text.setPosition((window.getSize().x - text.getGlobalBounds().width) / 2, (window.getSize().y - text.getGlobalBounds().height) / 2);
+	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
+	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
 
-	if (!font.loadFromFile("angelina.ttf"))
-		exit(1);
 	title.setFont(font);
 	title.setString("Instructions");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 100);
 
-	background.setSize(Vector2f(800, 600));
-	background.setFillColor(backgroundColor);
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	while (window.isOpen() && !goBack)
 	{

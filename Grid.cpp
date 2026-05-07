@@ -25,7 +25,7 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	}
 
 	_rectangle.setTexture(&_textureGrid); // Applique la texture reellement souhaitee
-	_rectangle.setSize(Vector2f(500, 500));
+	_rectangle.setSize(Vector2f(_width, _height));
 	_rectangle.setPosition(Vector2f(_xPos, _yPos)); //Positionne la grille au centre de la fenetre
 
 	initSpaces();

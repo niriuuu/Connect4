@@ -5,37 +5,36 @@
 #include "Game.h"
 #include "Button.h"
 #include "mesFonctions.h"
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
 
 int main() {
-	RenderWindow window(VideoMode(800, 600), "My window");
+	RenderWindow window(VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "Connect 4");
 
 	RectangleShape background;
-	Color backgroundColor(Uint8(35), Uint8(75), Uint8(20), Uint8(255));
 
 	Text title;
 	Font font;
 
-	Button button1("Play", Vector2f(300, 75), Vector2f((800 - 300) / 2, 175), Color::Black);
-	Button button2("Stats", Vector2f(300, 75), Vector2f((800 - 300) / 2, 275), Color::Black);
-	Button button3("Instructions", Vector2f(300, 75), Vector2f((800 - 300) / 2, 375), Color::Black);
-	Button button4("Quit", Vector2f(300, 75), Vector2f((800 - 300) / 2, 475), Color::Black);
+	const Vector2f buttonSize(300, 75);
+
+	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), Color::Black);
+	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, 400), Color::Black);
+	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, 500), Color::Black);
+	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, 600), Color::Black);
 	
 	Game game;
 
-	map<string, int> stats;
-	stats.emplace("gamesPlayed", 0);
-	stats.emplace("p1Wins", 0);
-	stats.emplace("p2Wins", 0);
-	stats.emplace("draws", 0);
+	map<string, int> stats = { {"gamesPlayed", 0}, {"p1Wins", 0}, {"p2Wins", 0}, {"draws", 0} };
+
 	load(stats);
 
 	window.setFramerateLimit(60);
 
-	background.setSize(Vector2f(800, 600));
-	background.setFillColor(backgroundColor);
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
+	background.setFillColor(BACKGROUNDCOLOR);
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
@@ -43,7 +42,8 @@ int main() {
 	title.setString("CONNECT 4");
 	title.setCharacterSize(100);
 	title.setFillColor(Color::White);
-	title.setPosition((window.getSize().x - title.getGlobalBounds().width) / 2, 10);
+	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
+	title.setPosition(WINDOWWIDTH / 2.0f, 120);
 
 	SoundBuffer collisionSoundBuffer;
 
