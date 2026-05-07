@@ -22,10 +22,10 @@ int main() {
 
 	const Vector2f buttonSize(300, 75);
 
-	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), Color::Black);
-	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, 400), Color::Black);
-	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, 500), Color::Black);
-	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, 600), Color::Black);
+	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), BUTTONCOLOR);
+	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, button1.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
+	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, button2.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
+	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, button3.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
 	
 	Game game;
 

@@ -13,8 +13,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 {
 	RectangleShape background;
 
-	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), Color::Black);
-	Button resetButton("Reset data", Vector2f(300, 75), Vector2f(WINDOWWIDTH / 2, WINDOWHEIGHT - 130), Color::Black);
+	Button exitButton("X", Vector2f(40, 40), Vector2f(30, 30), BUTTONCOLOR);
+	Button resetButton("Reset data", Vector2f(300, 75), Vector2f(WINDOWWIDTH / 2, WINDOWHEIGHT - 130), BUTTONCOLOR);
 
 	Text text;
 	Text title;
@@ -29,19 +29,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
 
-	text.setFont(font);
-	text.setString(content);
-	text.setCharacterSize(48);
-	text.setFillColor(Color::White);
-	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
-	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
-
-	title.setFont(font);
-	title.setString("Stats");
-	title.setCharacterSize(100);
-	title.setFillColor(Color::White);
-	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
-	title.setPosition(WINDOWWIDTH / 2.0f, 100);
+	setText(text, font, content, 48, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
+	setText(title, font, "Stats", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 100));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);
@@ -117,6 +106,16 @@ void resetStats(std::map<std::string, int>& stats)
 	}
 }
 
+void setText(sf::Text& text, sf::Font& font, std::string content, int charSize, sf::Color color, sf::Vector2f pos)
+{
+	text.setFont(font);
+	text.setString(content);
+	text.setCharacterSize(charSize);
+	text.setFillColor(color);
+	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
+	text.setPosition(pos);
+}
+
 void updateContent(std::string& content, std::map<std::string, int>& stats)
 {
 	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
@@ -145,19 +144,8 @@ void showInstructions(sf::RenderWindow& window)
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
 
-	text.setFont(font);
-	text.setString(content);
-	text.setCharacterSize(30);
-	text.setFillColor(Color::White);
-	text.setOrigin(text.getGlobalBounds().width / 2.0f, text.getGlobalBounds().height / 2.0f);
-	text.setPosition(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f);
-
-	title.setFont(font);
-	title.setString("Instructions");
-	title.setCharacterSize(100);
-	title.setFillColor(Color::White);
-	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
-	title.setPosition(WINDOWWIDTH / 2.0f, 100);
+	setText(text, font, content, 30, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
+	setText(title, font, "Instructions", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 100));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);
