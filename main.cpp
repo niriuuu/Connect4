@@ -22,7 +22,7 @@ int main() {
 
 	const Vector2f buttonSize(300, 75);
 
-	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 300), BUTTONCOLOR);
+	Button button1("Play", buttonSize, Vector2f(WINDOWWIDTH / 2, 320), BUTTONCOLOR);
 	Button button2("Stats", buttonSize, Vector2f(WINDOWWIDTH / 2, button1.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
 	Button button3("Instructions", buttonSize, Vector2f(WINDOWWIDTH / 2, button2.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
 	Button button4("Quit", buttonSize, Vector2f(WINDOWWIDTH / 2, button3.getRectangle().getPosition().y + 1.5f * buttonSize.y), BUTTONCOLOR);
@@ -45,12 +45,8 @@ int main() {
 
 	if (!font.loadFromFile("angelina.ttf"))
 		exit(1);
-	title.setFont(font);
-	title.setString("CONNECT 4");
-	title.setCharacterSize(100);
-	title.setFillColor(Color::White);
-	title.setOrigin(title.getGlobalBounds().width / 2.0f, title.getCharacterSize() / 2.0f);
-	title.setPosition(WINDOWWIDTH / 2.0f, 120);
+	
+	setText(title, font, "CONNECT 4", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
 
 	SoundBuffer collisionSoundBuffer;
 
