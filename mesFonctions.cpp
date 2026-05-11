@@ -29,8 +29,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 
-	setText(text, font, content, 48, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
-	setText(title, font, "Stats", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 100));
+	setText(text, font, content, 48, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.1f));
+	setText(title, font, "Stats", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);
@@ -145,7 +145,7 @@ void showInstructions(sf::RenderWindow& window)
 		exit(1);
 
 	setText(text, font, content, 30, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
-	setText(title, font, "Rules", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 100));
+	setText(title, font, "Rules", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);

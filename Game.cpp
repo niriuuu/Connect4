@@ -118,7 +118,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 				if (token.getCircle().getPosition().y >= (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)))
 				{
-					token.getCircle().setPosition(token.getCircle().getPosition().x, (lowBound - 1.5 * TOKENSIZE - 5) - (activeRow * (TOKENSIZE + verticalBorder)));
+					token.getCircle().setPosition(token.getCircle().getPosition().x, (lowBound - 1.5f * TOKENSIZE - 5.0f) - (activeRow * (TOKENSIZE + verticalBorder)));
 
 					playSound(collisionSound, buffer);
 
@@ -179,7 +179,7 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 			if (_gameOver)
 			{
-				winText.setPosition((window.getSize().x - winText.getGlobalBounds().width) / 2, window.getSize().y / 2 - winText.getCharacterSize());
+				winText.setPosition((window.getSize().x - winText.getGlobalBounds().width) / 2.0f, window.getSize().y / 2.0f - winText.getCharacterSize());
 				window.draw(winText);
 			}	
 
