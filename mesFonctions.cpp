@@ -118,10 +118,14 @@ void setText(sf::Text& text, sf::Font& font, std::string content, int charSize, 
 
 void updateContent(std::string& content, std::map<std::string, int>& stats)
 {
-	content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
+	/*content = string("Games played: ") + "  " + to_string(stats["gamesPlayed"])
 		+ "\n\nPlayer 1 wins: " + "  " + to_string(stats["p1Wins"])
 		+ "\n\nPlayer 2 wins: " + " " + to_string(stats["p2Wins"])
-		+ "\n\nDraws: " + "           " + to_string(stats["draws"]);
+		+ "\n\nDraws: " + "           " + to_string(stats["draws"]);*/
+	content = string("Games played:\t") + to_string(stats["gamesPlayed"])
+		+ "\n\nPlayer 1 wins:\t  " + to_string(stats["p1Wins"])
+		+ "\n\nPlayer 2 wins:\t  " + to_string(stats["p2Wins"])
+		+ "\n\nDraws:\t\t\t\t   " + to_string(stats["draws"]);
 }
 
 void showInstructions(sf::RenderWindow& window)
