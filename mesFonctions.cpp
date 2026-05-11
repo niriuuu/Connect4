@@ -139,7 +139,7 @@ void showInstructions(sf::RenderWindow& window)
 
 	Text title;
 
-	content = string("Goal :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
+	content = string("How to play :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
 
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);

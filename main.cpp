@@ -38,10 +38,10 @@ int main() {
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 
 	if (!_textureBackground.loadFromFile("ressources/Background.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+		exit(1);
 	}
 
-	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
+	background.setTexture(&_textureBackground);
 
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
@@ -63,9 +63,9 @@ int main() {
 	if (!mainMusicBuffer.loadFromFile("ressources/mainMusic.wav"))
 		return 1;
 
-	mainMusic.setBuffer(mainMusicBuffer); // On applique la musique charg�e � l�objet de type "Sound"
-	mainMusic.setLoop(true); // La musique jouera en boucle
-	mainMusic.play(); // On fait jouer la musique
+	mainMusic.setBuffer(mainMusicBuffer);
+	mainMusic.setLoop(true);
+	mainMusic.play();
 
 	while (window.isOpen())
 	{

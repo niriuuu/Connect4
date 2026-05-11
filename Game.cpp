@@ -52,10 +52,10 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 
 	if (!_textureBackground.loadFromFile("ressources/Background.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+		exit(1);
 	}
 
-	background.setTexture(&_textureBackground); // Applique la texture reellement souhaitee
+	background.setTexture(&_textureBackground);
 
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
@@ -140,7 +140,6 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 					activeColumn = 3;
 					activeRow = 0;
 
-					//validateur
 					if (validateGame(1, grid))
 					{
 						_gameOver = true;
@@ -352,6 +351,6 @@ bool Game::validateGame(int joueur, Grid& grid)
 
 void Game::playSound(Sound &sound, SoundBuffer &buffer)
 {
-	sound.setBuffer(buffer); // On applique la musique chargée à l’objet de type "Sound"
-	sound.play(); // On fait jouer la musique
+	sound.setBuffer(buffer);
+	sound.play();
 }

@@ -17,10 +17,10 @@ Token::Token(Color color)
 	_circle.setOutlineThickness(2);
 
 	if (!_textureToken.loadFromFile("ressources/Token.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+		exit(1);
 	}
 
-	_circle.setTexture(&_textureToken); // Applique la texture reellement souhaitee
+	_circle.setTexture(&_textureToken);
 }
 
 CircleShape& Token::getCircle()

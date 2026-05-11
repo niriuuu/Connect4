@@ -22,7 +22,7 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	sf::Color GRIDCOLOR(253, 233, 11, 200);
 
 	if (!_textureGrid.loadFromFile("ressources/Grid.png")) {
-		exit(1); // Si incapable de charger, on quitte avec un code d'erreur
+		exit(1);
 	}
 
 	_rectangle.setTexture(&_textureGrid); // Applique la texture reellement souhaitee
