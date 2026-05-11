@@ -29,8 +29,8 @@ void showStats(RenderWindow& window, map<string, int>& stats)
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 
-	setText(text, font, content, 48, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.1f));
-	setText(title, font, "Stats", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
+	setText(text, font, content, 40, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.1f));
+	setText(title, font, "Stats", 90, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);
@@ -139,13 +139,13 @@ void showInstructions(sf::RenderWindow& window)
 
 	Text title;
 
-	content = string("How to play :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow keys to drop token down a column");
+	content = string("How to play :\nPlayers take turns dropping one token at a time into the grid.\nThe token will slide down to the lowest available space in a column.\nThe goal is to be the first player to connect four of your tokens in a row :\n(Horizontally, vertically or Diagonally).\nThe first player to connect four tokens in a row wins the game.\nIf the grid is filled and no player has connected four, the game is a draw.\n\nControls :\n Use The Left and Right arrow keys to position your token\n Use the Down arrow key to drop token down a column");
 
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
 
-	setText(text, font, content, 30, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
-	setText(title, font, "Rules", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
+	setText(text, font, content, 26, Color::White, Vector2f(WINDOWWIDTH / 2.0f, WINDOWHEIGHT / 2.0f));
+	setText(title, font, "Rules", 90, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
 
 	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setFillColor(BACKGROUNDCOLOR);

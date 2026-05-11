@@ -14,11 +14,7 @@ Game::Game()
 	_playerTurn = 1;
 }
 
-Game::~Game()
-{
-}
-
-int Game::play(RenderWindow& window, SoundBuffer buffer)
+int Game::play(RenderWindow& window, SoundBuffer& buffer)
 {
 	Grid grid(GRIDWIDTH, GRIDHEIGHT, (WINDOWWIDTH - GRIDWIDTH) / 2, (WINDOWHEIGHT - GRIDHEIGHT) / 2);
 
@@ -124,8 +120,28 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 
 					tokens.push_back(token);
 					grid.changeSpace(activeRow, activeColumn, _playerTurn);
+					
+					compteur++;
+
+					if (validateGame(_playerTurn, grid))
+					{
+						_gameOver = true;
+						winner = _playerTurn;
+						winText.setString(String("Player ") + to_string(_playerTurn) + " wins!");
+					}
+					else if (compteur == 42)
+					{
+						_gameOver = true;
+						winner = 0;
+						winText.setString("Draw!");
+					}
+
+					_dir = NONE;
+					token.resetPos();
+					activeColumn = 3;
+					activeRow = 0;
 					if (_playerTurn == 1)
-					{	
+					{
 						token.getCircle().setFillColor(Color::Red);
 						_playerTurn = 2;
 					}
@@ -133,33 +149,6 @@ int Game::play(RenderWindow& window, SoundBuffer buffer)
 					{
 						token.getCircle().setFillColor(Color::Blue);
 						_playerTurn = 1;
-					}
-
-					_dir = NONE;
-					token.resetPos();
-					activeColumn = 3;
-					activeRow = 0;
-
-					if (validateGame(1, grid))
-					{
-						_gameOver = true;
-						winner = 1;
-						winText.setString("Player 1 wins!");
-					}
-					else if (validateGame(2, grid))
-					{
-						_gameOver = true;
-						winner = 2;
-						winText.setString("Player 2 wins!");
-					}
-
-					compteur++;
-
-					if (compteur == 42)
-					{
-						_gameOver = true;
-						winner = 0;
-						winText.setString("Draw!");
 					}
 				}
 			}
@@ -238,7 +227,7 @@ void Game::handleEvent(Event& event, RenderWindow& window)
 	}
 }
 
-bool Game::validateGame(int joueur, Grid& grid)
+bool Game::validateGame(int joueur, Grid& grid) const
 {
 	int compteur = 0;
 	int x = 0;
@@ -349,7 +338,7 @@ bool Game::validateGame(int joueur, Grid& grid)
 	return false;
 }
 
-void Game::playSound(Sound &sound, SoundBuffer &buffer)
+void Game::playSound(Sound &sound, SoundBuffer &buffer) const
 {
 	sound.setBuffer(buffer);
 	sound.play();

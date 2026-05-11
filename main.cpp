@@ -14,11 +14,10 @@ int main() {
 	RenderWindow window(VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "Connect 4");
 
 	RectangleShape background;
+	sf::Texture _textureBackground;
 
 	Text title;
 	Font font;
-
-	sf::Texture _textureBackground;
 
 	const Vector2f buttonSize(300, 75);
 
@@ -29,36 +28,31 @@ int main() {
 	
 	Game game;
 
+	SoundBuffer collisionSoundBuffer;
+	SoundBuffer mainMusicBuffer;
+	Sound mainMusic;
+
 	map<string, int> stats = { {"gamesPlayed", 0}, {"p1Wins", 0}, {"p2Wins", 0}, {"draws", 0} };
 
 	load(stats);
 
 	window.setFramerateLimit(60);
 
-	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
-
 	if (!_textureBackground.loadFromFile("ressources/Background.png")) {
 		exit(1);
 	}
-
+	background.setSize(Vector2f(WINDOWWIDTH, WINDOWHEIGHT));
 	background.setTexture(&_textureBackground);
 
 	if (!font.loadFromFile("ressources/Margarine-Regular.ttf"))
 		exit(1);
-	
 	setText(title, font, "CONNECT 4", 100, Color::White, Vector2f(WINDOWWIDTH / 2.0f, 120));
-
-	SoundBuffer collisionSoundBuffer;
 
 	if (!collisionSoundBuffer.loadFromFile("ressources/TokenSound.ogg"))
 		exit(1);
 
-	SoundBuffer mainMusicBuffer;
-	Sound mainMusic;
-
 	if (!mainMusicBuffer.loadFromFile("ressources/mainMusic.wav"))
 		return 1;
-
 	mainMusic.setBuffer(mainMusicBuffer);
 	mainMusic.setLoop(true);
 	mainMusic.play();
