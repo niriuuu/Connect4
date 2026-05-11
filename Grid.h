@@ -18,7 +18,7 @@ public:
 	~Grid();
 
 	sf::RectangleShape& getRectangle();
-	int getSpace(int row, int col);
+	int getSpace(int row, int col) const;
 
 	void initSpaces();
 
