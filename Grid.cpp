@@ -19,16 +19,15 @@ Grid::Grid(int width, int height, int xPos, int yPos)
 	_height = height;
 	_xPos = xPos;
 	_yPos = yPos;
-	sf::Color GRIDCOLOR(253, 233, 11, 200);
 
 	if (!_textureGrid.loadFromFile("ressources/Grid.png")) {
 		exit(1);
 	}
 
-	_rectangle.setTexture(&_textureGrid); // Applique la texture reellement souhaitee
+	_rectangle.setTexture(&_textureGrid); 
 	_rectangle.setSize(Vector2f(_width, _height));
-	_rectangle.setPosition(Vector2f(_xPos, _yPos)); //Positionne la grille au centre de la fenetre
-	_rectangle.setFillColor(GRIDCOLOR);
+	_rectangle.setPosition(Vector2f(_xPos, _yPos)); 
+	_rectangle.setFillColor(sf::Color(253, 233, 11, 200));
 
 	initSpaces();
 }
@@ -46,7 +45,7 @@ sf::RectangleShape& Grid::getRectangle()
 	return _rectangle;
 }
 
-int Grid::getSpace(int row, int col)
+int Grid::getSpace(int row, int col) const
 {
 	return _spaces[row][col];
 }

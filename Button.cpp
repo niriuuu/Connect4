@@ -21,9 +21,9 @@ Button::Button(const char* name, sf::Vector2f size, sf::Vector2f pos, sf::Color 
 
 	_text.setFont(_font);
 	_text.setString(name);
-	_text.setCharacterSize(_rectangle.getSize().y / 1.5f);
+	_text.setCharacterSize(_rectangle.getSize().y / 2.0f);
 	_text.setFillColor(Color::White);
-	_text.setOrigin(_text.getGlobalBounds().width / 2.0f, _text.getCharacterSize() / 1.3f);
+	_text.setOrigin(_text.getGlobalBounds().width / 2.0f, _text.getCharacterSize() / 1.5f);
 	_text.setPosition(_rectangle.getPosition().x, _rectangle.getPosition().y);
 }
 
